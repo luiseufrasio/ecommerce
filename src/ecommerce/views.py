@@ -20,4 +20,9 @@ def contact_page(request):
 		"title": "Contact",
 		"content": "Welcome to my contacts!"
 	}
-	return render(request, 'home_page.html', context)
+	if request.method == 'POST':
+		#print(request.POST)
+		print(request.POST.get('full_name'))
+		print(request.POST.get('email'))
+		print(request.POST.get('content'))
+	return render(request, 'contact/view.html', context)
