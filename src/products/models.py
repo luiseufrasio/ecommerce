@@ -11,7 +11,23 @@ def upload_image_path(instance, file_name):
 	return f'products/{random_name}/{random_name}{ext}'
 
 # Create your models here.
+class ProductQuerySet(models.query.QuerySet):
+	def active(self):
+		return self.filter(active=True)
+
+	def featured(self):
+		return self.filter(featured=True, active=True)
+
 class ProductManager(models.Manager):
+	def get_queryset(self):
+		return ProductQuerySet(self.model, using=self._db)
+
+	def all(self):
+		return self.get_queryset().active()
+
+	def featured(self):
+		return self.get_queryset().featured()
+
 	def get_by_id(self, id):
 		qs = self.get_queryset().filter(id=id)
 		if qs.count() == 1:
@@ -23,6 +39,8 @@ class Product(models.Model):
 	description = models.TextField()
 	price = models.DecimalField(max_digits=20, decimal_places=2, default=0.00)
 	image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+	featured = models.BooleanField(default=False)
+	active = models.BooleanField(default=True)
 
 	objects = ProductManager()
 

@@ -3,6 +3,14 @@ from django.shortcuts import render
 from django.http import Http404
 from .models import Product
 
+class ProductFeaturedListView(ListView):
+    queryset = Product.objects.all().featured()
+    template_name = "products/list.html"
+
+class ProductFeaturedDetailView(DetailView):
+	queryset = Product.objects.all().featured()
+	template_name = "products/featured-detail.html"
+
 class ProductListView(ListView):
     model = Product
     template_name = "products/list.html"
