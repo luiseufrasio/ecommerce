@@ -22,6 +22,7 @@ from django.urls import path
 from products.views import (
     ProductListView, 
     ProductDetailView,
+    ProductDetailSlugView,
     ProductFeaturedListView, 
     ProductFeaturedDetailView
     )
@@ -36,6 +37,7 @@ urlpatterns = [
     path('register/', register_page),
     path('products/', ProductListView.as_view()),
     path('products/<int:pk>/', ProductDetailView.as_view()),
+    path('products/<slug:slug>/', ProductDetailSlugView.as_view()),
     path('featured/', ProductFeaturedListView.as_view()),
     path('featured/<int:pk>/', ProductFeaturedDetailView.as_view()),
     path('admin/', admin.site.urls),
