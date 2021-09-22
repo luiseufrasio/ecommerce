@@ -17,7 +17,7 @@ class ProductListView(ListView):
 
 class ProductDetailSlugView(DetailView):
     model = Product
-    template_name = "products/product.html"
+    template_name = "products/detail.html"
 
     def get_object(self, *args, **kwargs):
     	slug = self.kwargs.get('slug')
@@ -26,7 +26,7 @@ class ProductDetailSlugView(DetailView):
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = "products/product.html"
+    template_name = "products/detail.html"
 
     def get_object(self, *args, **kwargs):
     	pk = self.kwargs.get('pk')
